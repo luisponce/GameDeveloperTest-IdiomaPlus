@@ -71,28 +71,28 @@ public class PlayerControl : MonoBehaviour
     #region Movement Events
     public void MoveForward()
     {
-        moveDir += Vector3.forward;
+        moveDir += heroController.transform.forward;
         moveDir.Normalize();
         isGainingSpeed = true;
     }
 
     public void MoveLeft()
     {
-        moveDir += Vector3.left;
+        moveDir -= heroController.transform.right;
         moveDir.Normalize();
         isGainingSpeed = true;
     }
 
     public void MoveBackward()
     {
-        moveDir += Vector3.back;
+        moveDir -= heroController.transform.forward;
         moveDir.Normalize();
         isGainingSpeed = true;
     }
 
     public void MoveRight()
     {
-        moveDir += Vector3.right;
+        moveDir += heroController.transform.right;
         moveDir.Normalize();
         isGainingSpeed = true;
     }
