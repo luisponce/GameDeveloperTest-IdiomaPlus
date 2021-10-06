@@ -126,12 +126,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3748831043644096898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.578, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3681636163013434962}
   m_Father: {fileID: 3571949962758693469}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2473273208206908501
 MonoBehaviour:
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 3681636163013434957}
-  orbitSensitivity: 7
+  orbitSensitivity: 5
 --- !u!1 &6840397541467152605
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,10 +192,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heroController: {fileID: 1455955827}
+  characterModel: {fileID: 782565743158402758}
   maxMoveSpeed: 7
   movementAceleration: 0.07
   movementDeaceleration: 0.06
   movementClamp: 0.1
+  attackReach: 1.5
+  damage: 5
+  atkSpeed: 1.5
 --- !u!1001 &3519326284944523080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -261,5 +265,10 @@ GameObject:
 --- !u!4 &3571949962758693469 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 91537696499146005, guid: 8526fc62d267e704aabe14dd3ca9d7ed, type: 3}
+  m_PrefabInstance: {fileID: 3519326284944523080}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &782565743158402758 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4182458641402077582, guid: 8526fc62d267e704aabe14dd3ca9d7ed, type: 3}
   m_PrefabInstance: {fileID: 3519326284944523080}
   m_PrefabAsset: {fileID: 0}

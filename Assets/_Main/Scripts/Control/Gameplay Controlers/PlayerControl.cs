@@ -7,8 +7,8 @@ public class PlayerControl : MonoBehaviour
 
     private static PlayerControl instance; //for the singleton
 
-    [SerializeField]
-    private CharacterController heroController;
+    public CharacterController heroController;
+    public Transform characterModel;
 
     #region Movement Variables
     [SerializeField]
@@ -26,7 +26,17 @@ public class PlayerControl : MonoBehaviour
     private bool isGainingSpeed = false;
     #endregion
 
+    #region Combat variables
+    private float attackSpherecastRadius = 0.5f;
+    [SerializeField]
+    private float attackReach = 1.5f;
 
+    [SerializeField]
+    private int damage = 5;
+    [SerializeField]
+    private float atkSpeed = 1.5f;
+    private float lastAtkTime;
+    #endregion
 
     void Awake()
     {
@@ -59,6 +69,7 @@ public class PlayerControl : MonoBehaviour
             {
                 curSpeed = curSpeed.normalized * maxMoveSpeed;
             }
+            characterModel.LookAt(characterModel.transform.position + curSpeed);
             isGainingSpeed = false;
         } else
         {
@@ -107,8 +118,21 @@ public class PlayerControl : MonoBehaviour
 
     public void Attack()
     {
-        //TODO: actually attack
-        Debug.Log("attack");
+        if(lastAtkTime + atkSpeed < Time.time)
+        {
+            Debug.Log("attack");
+            if (Physics.SphereCast(characterModel.position + heroController.center, attackSpherecastRadius, characterModel.forward, out RaycastHit hit, attackReach))
+            {
+                Debug.Log("hit");
+                Grunt grunt = hit.collider.GetComponent<Grunt>();
+                if (grunt != null)
+                {
+                    grunt.Damage(damage);
+                }
+            }
+
+            lastAtkTime = Time.time;
+        }
     }
 
     #region PROPERTIES
