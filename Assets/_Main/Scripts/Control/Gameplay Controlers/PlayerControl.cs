@@ -7,6 +7,24 @@ public class PlayerControl : MonoBehaviour
 
     private static PlayerControl instance; //for the singleton
 
+    [SerializeField]
+    private CharacterController heroController;
+
+    [SerializeField]
+    private float maxMoveSpeed = 7f;
+    private Vector3 curSpeed = new Vector3(0,0);
+
+    [SerializeField]
+    private float movementAceleration = 0.07f;
+    [SerializeField]
+    private float movementDeaceleration = 0.05f;
+    [SerializeField]
+    private float movementClamp = 0.1f;
+
+    private Vector3 moveDir = new Vector3(0, 0);
+
+    private bool isGainingSpeed = false;
+
     void Awake()
     {
         #region SINGLETON
@@ -29,35 +47,54 @@ public class PlayerControl : MonoBehaviour
         InputHandler.Instance.OnAttack += Attack;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (isGainingSpeed)
+        {
+            curSpeed += movementAceleration * moveDir;
+            if (curSpeed.magnitude >= maxMoveSpeed)
+            {
+                curSpeed = curSpeed.normalized * maxMoveSpeed;
+            }
+            isGainingSpeed = false;
+        } else
+        {
+            if(curSpeed.magnitude > movementClamp)
+            {
+                curSpeed += movementDeaceleration * -curSpeed.normalized;
+            }
+        }
+
+        if(curSpeed.magnitude > movementClamp) heroController.Move(curSpeed * Time.deltaTime);
     }
 
-    #region Movement
+    #region Movement Events
     public void MoveForward()
     {
-        //TODO: actually move
-        Debug.Log("Forward");
+        moveDir += Vector3.forward;
+        moveDir.Normalize();
+        isGainingSpeed = true;
     }
 
     public void MoveLeft()
     {
-        //TODO: actually move
-        Debug.Log("Left");
+        moveDir += Vector3.left;
+        moveDir.Normalize();
+        isGainingSpeed = true;
     }
 
     public void MoveBackward()
     {
-        //TODO: actually move
-        Debug.Log("Backward");
+        moveDir += Vector3.back;
+        moveDir.Normalize();
+        isGainingSpeed = true;
     }
 
     public void MoveRight()
     {
-        //TODO: actually move
-        Debug.Log("Right");
+        moveDir += Vector3.right;
+        moveDir.Normalize();
+        isGainingSpeed = true;
     }
     #endregion
 
