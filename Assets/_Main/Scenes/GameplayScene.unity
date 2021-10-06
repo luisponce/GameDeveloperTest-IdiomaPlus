@@ -822,6 +822,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2473273208206908501, guid: 22a9c0120ce948b41b8d5d7ca6e39503, type: 3}
+      propertyPath: orbitSensitivity
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6840397541467152605, guid: 22a9c0120ce948b41b8d5d7ca6e39503, type: 3}
       propertyPath: m_Name
       value: Hero

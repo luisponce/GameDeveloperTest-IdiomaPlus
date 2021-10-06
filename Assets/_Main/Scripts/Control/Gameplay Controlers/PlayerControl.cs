@@ -10,6 +10,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private CharacterController heroController;
 
+    #region Movement Variables
     [SerializeField]
     private float maxMoveSpeed = 7f;
     private Vector3 curSpeed = new Vector3(0,0);
@@ -22,8 +23,10 @@ public class PlayerControl : MonoBehaviour
     private float movementClamp = 0.1f;
 
     private Vector3 moveDir = new Vector3(0, 0);
-
     private bool isGainingSpeed = false;
+    #endregion
+
+
 
     void Awake()
     {
@@ -71,28 +74,32 @@ public class PlayerControl : MonoBehaviour
     #region Movement Events
     public void MoveForward()
     {
-        moveDir += heroController.transform.forward;
+        moveDir += CameraControl.Instance.transform.forward;
+        moveDir.y = 0;
         moveDir.Normalize();
         isGainingSpeed = true;
     }
 
     public void MoveLeft()
     {
-        moveDir -= heroController.transform.right;
+        moveDir -= CameraControl.Instance.transform.right;
+        moveDir.y = 0;
         moveDir.Normalize();
         isGainingSpeed = true;
     }
 
     public void MoveBackward()
     {
-        moveDir -= heroController.transform.forward;
+        moveDir -= CameraControl.Instance.transform.forward;
+        moveDir.y = 0;
         moveDir.Normalize();
         isGainingSpeed = true;
     }
 
     public void MoveRight()
     {
-        moveDir += heroController.transform.right;
+        moveDir += CameraControl.Instance.transform.right;
+        moveDir.y = 0;
         moveDir.Normalize();
         isGainingSpeed = true;
     }
