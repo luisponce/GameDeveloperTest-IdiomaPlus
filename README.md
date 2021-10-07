@@ -9,6 +9,7 @@ The test 'rules' can be found in the word document. The test asks for the develo
 
 ## Assets used
 * [RPG inventory icons](https://assetstore.unity.com/packages/2d/gui/icons/rpg-inventory-icons-56687)
+* [Simple Gems Ultimate Animated Customizable Pack](https://assetstore.unity.com/packages/3d/props/simple-gems-ultimate-animated-customizable-pack-73764)
 
 ## Arquitecture
 ### Component Diagram 
