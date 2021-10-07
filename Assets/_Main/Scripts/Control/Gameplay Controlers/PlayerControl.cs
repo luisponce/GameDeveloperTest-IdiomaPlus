@@ -195,7 +195,17 @@ public class PlayerControl : MonoBehaviour
 
     public bool AddToInventory(Item item) //returns if the item was added or not
     {
-        for(int i=0; i < inventory.Length; i++)
+        foreach (Item i in inventory)
+        {
+            if(i != null && item.Name == i.Name)
+            {
+                i.Amount += item.Amount;
+                OnInventoryChange?.Invoke();
+                return true;
+            }
+        }
+
+        for (int i=0; i < inventory.Length; i++)
         {
             if(inventory[i] == null)
             {
@@ -204,6 +214,7 @@ public class PlayerControl : MonoBehaviour
                 return true;
             }
         }
+
         return false;
     }
 
