@@ -41,7 +41,7 @@ public class PlayerControl : MonoBehaviour
     private int health;
     #endregion
 
-    #region Inventory
+    #region Inventory Variables
     private int invSize = 5;
     private Item[] inventory;
 
@@ -248,6 +248,8 @@ public class PlayerControl : MonoBehaviour
                 i++;
             }
         }
+        inventory = newInv;
+        OnInventoryChange?.Invoke();
     }
     #endregion
 
