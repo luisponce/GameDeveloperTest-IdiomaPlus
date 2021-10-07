@@ -12,13 +12,13 @@ public class InventoryUI : MonoBehaviour
 
     void Start()
     {
-        
+        PlayerControl.Instance.OnInventoryChange += UpdateInventory;
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateInventory();
+
     }
 
     public void UpdateInventory()

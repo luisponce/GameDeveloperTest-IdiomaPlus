@@ -28,11 +28,14 @@ public class InputHandler : MonoBehaviour {
     public delegate void Attack();
     public Attack OnAttack;
 
-    public delegate void Inventory();
-    public Inventory OnInventory;
-
     public delegate void PauseMenu();
     public PauseMenu OnOpenPauseMenu;
+
+    #region hotbar
+    //TODO: change to a array
+    public delegate void Hotbar(int i);
+    public Hotbar OnHotbar;
+    #endregion
     #endregion
 
     void Awake()
@@ -77,15 +80,37 @@ public class InputHandler : MonoBehaviour {
             OnAttack?.Invoke();
         }
 
-        if (Input.GetKey(controlsKeyBinds.inventoryKC))
-        {
-            OnInventory?.Invoke();
-        }
-
         if (Input.GetKey(controlsKeyBinds.pauseMenuKC))
         {
             OnOpenPauseMenu?.Invoke();
         }
+
+        #region hotbar
+        if (Input.GetKey(controlsKeyBinds.hotbar1))
+        {
+            OnHotbar?.Invoke(0);
+        }
+
+        if (Input.GetKey(controlsKeyBinds.hotbar2))
+        {
+            OnHotbar?.Invoke(1);
+        }
+
+        if (Input.GetKey(controlsKeyBinds.hotbar3))
+        {
+            OnHotbar?.Invoke(2);
+        }
+
+        if (Input.GetKey(controlsKeyBinds.hotbar4))
+        {
+            OnHotbar?.Invoke(3);
+        }
+
+        if (Input.GetKey(controlsKeyBinds.hotbar5))
+        {
+            OnHotbar?.Invoke(4);
+        }
+        #endregion
     }
 
     #region PROPERTIES

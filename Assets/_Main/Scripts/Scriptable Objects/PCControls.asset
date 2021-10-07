@@ -17,5 +17,9 @@ MonoBehaviour:
   backMovementKC: 115
   rightMovementKC: 100
   attackCK: 323
-  inventoryKC: 9
   pauseMenuKC: 27
+  hotbar1: 49
+  hotbar2: 50
+  hotbar3: 51
+  hotbar4: 52
+  hotbar5: 53

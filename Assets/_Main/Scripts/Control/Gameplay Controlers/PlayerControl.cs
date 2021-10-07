@@ -44,6 +44,12 @@ public class PlayerControl : MonoBehaviour
     #region Inventory
     private int invSize = 5;
     private Item[] inventory;
+
+    public delegate void InventoryChange();
+    public InventoryChange OnInventoryChange;
+
+    private float invLastUse;
+    private float useItemCooldown = 1;
     #endregion
 
     #region unity events
@@ -61,6 +67,8 @@ public class PlayerControl : MonoBehaviour
 
         health = maxHealth;
         inventory = new Item[invSize];
+
+        invLastUse = 0;
     }
 
     void Start()
@@ -70,6 +78,8 @@ public class PlayerControl : MonoBehaviour
         InputHandler.Instance.OnBackwardsMovement += MoveBackward;
         InputHandler.Instance.OnRightMovement += MoveRight;
         InputHandler.Instance.OnAttack += Attack;
+
+        InputHandler.Instance.OnHotbar += UseInventory;
     }
 
     void Update()
@@ -190,10 +200,43 @@ public class PlayerControl : MonoBehaviour
             if(inventory[i] == null)
             {
                 inventory[i] = item;
+                OnInventoryChange?.Invoke();
                 return true;
             }
         }
         return false;
+    }
+
+    public void UseInventory(int slot)
+    {
+        if (invLastUse + useItemCooldown <= Time.time && inventory[slot] != null)
+        {
+            int remaining = inventory[slot].Use(this);
+            invLastUse = Time.time;
+            if (remaining <= 0)
+            {
+                inventory[slot] = null;
+                SortInventory();
+            } else
+            {
+                inventory[slot].Amount = remaining;
+            }
+            OnInventoryChange?.Invoke();
+        } 
+    }
+
+    public void SortInventory()
+    {
+        Item[] newInv = new Item[inventory.Length];
+        int i = 0;
+        foreach (Item item in inventory)
+        {
+            if(item != null)
+            {
+                newInv[i] = item;
+                i++;
+            }
+        }
     }
     #endregion
 

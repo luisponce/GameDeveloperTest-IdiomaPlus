@@ -12,6 +12,11 @@ public class Controls : ScriptableObject
 
     public KeyCode attackCK;
 
-    public KeyCode inventoryKC;
     public KeyCode pauseMenuKC;
+
+    public KeyCode hotbar1;
+    public KeyCode hotbar2;
+    public KeyCode hotbar3;
+    public KeyCode hotbar4;
+    public KeyCode hotbar5;
 }
