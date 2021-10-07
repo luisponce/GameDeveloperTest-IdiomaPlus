@@ -7,8 +7,10 @@ Base project given by IdiomaPlus: https://github.com/gersonip/IdiomaPlusDevTest
 The test 'rules' can be found in the word document. The test asks for the development of an RPG with a number of features described in the document provided.
 [GameDeveloperTest.docx](https://github.com/luisponce/GameDeveloperTest-IdiomaPlus/files/7291269/GameDeveloperTest.docx)
 
+## Assets used
+* [RPG inventory icons](https://assetstore.unity.com/packages/2d/gui/icons/rpg-inventory-icons-56687)
 
 ## Arquitecture
 ### Component Diagram 
 
-![GameDeveloperTest component diagram](https://user-images.githubusercontent.com/2230919/136149903-62e52428-5d94-4889-b71d-281a4e336af0.png)
+![GameDeveloperTest component diagram drawio](https://user-images.githubusercontent.com/2230919/136439987-65a91cbf-38a2-48b8-b693-9b2b02b7b670.png)
