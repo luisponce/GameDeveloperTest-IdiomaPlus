@@ -39,6 +39,9 @@ public class PlayerControl : MonoBehaviour
 
     private readonly int maxHealth = 50; //remove readonly for mechanics that change maxHP
     private int health;
+
+    public delegate void HealthChange();
+    public HealthChange OnHealthChange;
     #endregion
 
     #region Inventory Variables
@@ -162,7 +165,7 @@ public class PlayerControl : MonoBehaviour
     public void Damage(int dmg)
     {
         health -= dmg;
-        Debug.Log(health);
+        OnHealthChange?.Invoke();
         if (health <= 0)
         {
             health = 0;
@@ -184,6 +187,7 @@ public class PlayerControl : MonoBehaviour
         {
             health += hp;
             if (health > maxHealth) health = maxHealth;
+            OnHealthChange?.Invoke();
         }
     }
 
