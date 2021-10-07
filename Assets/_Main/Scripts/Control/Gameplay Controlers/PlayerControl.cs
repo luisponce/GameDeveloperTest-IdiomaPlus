@@ -36,6 +36,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private float atkSpeed = 1.5f;
     private float lastAtkTime;
+
+    private int health;
     #endregion
 
     void Awake()
@@ -133,6 +135,22 @@ public class PlayerControl : MonoBehaviour
 
             lastAtkTime = Time.time;
         }
+    }
+
+    public void Damage(int dmg)
+    {
+        health -= dmg;
+        if (health <= 0)
+        {
+            health = 0;
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        //TODO: end game
+        Debug.Log("rip");
     }
 
     #region PROPERTIES
