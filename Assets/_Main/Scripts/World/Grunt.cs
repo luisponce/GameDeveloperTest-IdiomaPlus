@@ -105,7 +105,7 @@ public class Grunt : MonoBehaviour
                 atkCharge += Time.deltaTime;
                 if(atkCharge >= atkSpeed)
                 {
-                    PlayerControl.Instance.Damage(atkDamage);
+                    PlayerControl.Instance.DealDamage(atkDamage);
                     atkCharge = 0;
                 }
                 if(distGrunt.magnitude > atkRange)

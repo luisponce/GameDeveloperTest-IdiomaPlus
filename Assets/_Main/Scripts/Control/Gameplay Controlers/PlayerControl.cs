@@ -42,6 +42,9 @@ public class PlayerControl : MonoBehaviour
 
     public delegate void HealthChange();
     public HealthChange OnHealthChange;
+
+    public delegate void DamageChange();
+    public DamageChange OnDamageChange;
     #endregion
 
     #region Inventory Variables
@@ -162,7 +165,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    public void Damage(int dmg)
+    public void DealDamage(int dmg)
     {
         health -= dmg;
         OnHealthChange?.Invoke();
@@ -195,6 +198,8 @@ public class PlayerControl : MonoBehaviour
     {
         //TODO: change to a temporary power up
         damage += atkUp;
+
+        OnDamageChange?.Invoke();
     }
 
     public bool AddToInventory(Item item) //returns if the item was added or not
@@ -264,5 +269,6 @@ public class PlayerControl : MonoBehaviour
     public int MaxHealth => maxHealth;
 
     public Item[] Inventory { get => inventory; }
+    public int Damage { get => damage; }
     #endregion
 }
