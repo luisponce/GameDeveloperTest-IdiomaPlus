@@ -29,8 +29,14 @@ public class Grunt : MonoBehaviour
     private float maxChaseRange = 10;
 
     private Vector3 chaseAnchor;
-    private Vector3 dist;
     private float reTargetChaseThreshold = 0.1f;
+    #endregion
+
+    #region patrol variables
+    private float nextPatrolChange;
+    private const float minTimeToChangePatrol = 1f;
+    private const float maxTimeToChangePatrol = 5f;
+    private float patrolMaxRange = 5f;
     #endregion
 
     private EGruntAIState aiState;
@@ -41,28 +47,39 @@ public class Grunt : MonoBehaviour
         aiState = EGruntAIState.Idle;
         atkCharge = 0;
         chaseAnchor = transform.position;
+
+        nextPatrolChange = 0;
     }
 
     void Update()
     {
-        dist = PlayerControl.Instance.transform.position - chaseAnchor;
+        #region ai FSM
+        Vector3 distAnchor = PlayerControl.Instance.transform.position - chaseAnchor;
+        Vector3 distGrunt = PlayerControl.Instance.transform.position - transform.position;
         switch (aiState)
         {
             case EGruntAIState.Idle:
-                //check for player vision and range
-                if(dist.magnitude < agroRange)
+                //check for player range
+                if(distGrunt.magnitude < agroRange)
                 {
                     Chase();
                 }
+
+                if(nextPatrolChange < Time.time)
+                {
+                    SetNextPatrolPath();
+                    SetRandomNextPatrolTime();
+                }
+
                 break;
 
             case EGruntAIState.Chasing:
                 //stop if player leaves or in range of attack
-                if (dist.magnitude > maxChaseRange)
+                if (distAnchor.magnitude > maxChaseRange)
                 {
                     StopChase();
                 } else {
-                    if ((transform.position - PlayerControl.Instance.transform.position).magnitude < atkRange)
+                    if (distGrunt.magnitude < atkRange)
                     {
                         Attack();
                     } 
@@ -72,8 +89,6 @@ public class Grunt : MonoBehaviour
                         Chase();
                     }
                 }
-
-                
                 break;
 
             case EGruntAIState.Walking:
@@ -93,16 +108,18 @@ public class Grunt : MonoBehaviour
                     PlayerControl.Instance.Damage(atkDamage);
                     atkCharge = 0;
                 }
-                if((PlayerControl.Instance.transform.position - transform.position).magnitude > atkRange)
+                if(distGrunt.magnitude > atkRange)
                 {
                     //out of range
-                    if (dist.magnitude < maxChaseRange) Chase();
+                    if (distAnchor.magnitude < maxChaseRange) Chase();
                     else StopChase();
                 }
                 break;
         }
+        #endregion
     }
 
+    #region combat
     public void Damage(int dmg)
     {
         health -= dmg;
@@ -113,11 +130,20 @@ public class Grunt : MonoBehaviour
         }
     }
 
+    public void Attack()
+    {
+        aiState = EGruntAIState.Attaking;
+        navAgent.isStopped = true;
+        Debug.Log("atk");
+    }
+
     public void Die()
     {
         Destroy(gameObject);
     }
+    #endregion
 
+    #region state transitions
     public void Chase()
     {
         aiState = EGruntAIState.Chasing;
@@ -132,11 +158,19 @@ public class Grunt : MonoBehaviour
         navAgent.SetDestination(chaseAnchor);
         navAgent.isStopped = false;
     }
+    #endregion
 
-    public void Attack()
+
+    private void SetRandomNextPatrolTime()
     {
-        aiState = EGruntAIState.Attaking;
-        navAgent.isStopped = true;
-        Debug.Log("atk");
+        nextPatrolChange = Time.time + Random.Range(minTimeToChangePatrol, maxTimeToChangePatrol);
+    }
+
+    private void SetNextPatrolPath()
+    {
+        Vector3 anchorOffset = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+        anchorOffset.Normalize();
+        anchorOffset *= Random.Range(0, patrolMaxRange);
+        navAgent.destination = chaseAnchor + anchorOffset;
     }
 }
