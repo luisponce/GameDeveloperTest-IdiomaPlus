@@ -15,7 +15,7 @@ public class Grunt : MonoBehaviour
     [SerializeField]
     private int atkDamage = 2;
     [SerializeField]
-    private float atkRange = 1;
+    private float atkRange = 1.5f;
     [SerializeField]
     private float atkSpeed = 2;
     private float atkCharge;
@@ -30,6 +30,7 @@ public class Grunt : MonoBehaviour
 
     private Vector3 chaseAnchor;
     private Vector3 dist;
+    private float reTargetChaseThreshold = 0.1f;
     #endregion
 
     private EGruntAIState aiState;
@@ -56,12 +57,23 @@ public class Grunt : MonoBehaviour
                 break;
 
             case EGruntAIState.Chasing:
+                //stop if player leaves or in range of attack
                 if (dist.magnitude > maxChaseRange)
                 {
                     StopChase();
-                } else if(dist.magnitude < atkRange) {
-                    Attack();
+                } else {
+                    if ((transform.position - PlayerControl.Instance.transform.position).magnitude < atkRange)
+                    {
+                        Attack();
+                    } 
+                    //re-target when chasing and player moves
+                    if ((PlayerControl.Instance.transform.position - navAgent.destination).magnitude > reTargetChaseThreshold)
+                    {
+                        Chase();
+                    }
                 }
+
+                
                 break;
 
             case EGruntAIState.Walking:
@@ -111,18 +123,21 @@ public class Grunt : MonoBehaviour
     {
         aiState = EGruntAIState.Chasing;
         navAgent.SetDestination(PlayerControl.Instance.transform.position);
-        Debug.Log("chase");
+        navAgent.isStopped = false;
+        
     }
 
     public void StopChase()
     {
         aiState = EGruntAIState.Walking;
         navAgent.SetDestination(chaseAnchor);
+        navAgent.isStopped = false;
     }
 
     public void Attack()
     {
         aiState = EGruntAIState.Attaking;
-
+        navAgent.isStopped = true;
+        Debug.Log("atk");
     }
 }

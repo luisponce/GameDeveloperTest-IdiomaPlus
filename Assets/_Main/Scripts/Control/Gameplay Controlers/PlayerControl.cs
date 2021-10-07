@@ -60,6 +60,8 @@ public class PlayerControl : MonoBehaviour
         InputHandler.Instance.OnBackwardsMovement += MoveBackward;
         InputHandler.Instance.OnRightMovement += MoveRight;
         InputHandler.Instance.OnAttack += Attack;
+
+        health = 50;
     }
 
     void Update()
@@ -140,6 +142,7 @@ public class PlayerControl : MonoBehaviour
     public void Damage(int dmg)
     {
         health -= dmg;
+        Debug.Log(health);
         if (health <= 0)
         {
             health = 0;
