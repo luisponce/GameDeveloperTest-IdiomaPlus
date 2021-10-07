@@ -80,7 +80,6 @@ public class Grunt : MonoBehaviour
                 if (navAgent.remainingDistance < navAgent.stoppingDistance)
                 {
                     aiState = EGruntAIState.Idle;
-                    Debug.Log("idle");
                 }
                 break;
 

@@ -37,9 +37,16 @@ public class PlayerControl : MonoBehaviour
     private float atkSpeed = 1.5f;
     private float lastAtkTime;
 
+    private readonly int maxHealth = 50; //remove readonly for mechanics that change maxHP
     private int health;
     #endregion
 
+    #region Inventory
+    private int invSize = 5;
+    private Item[] inventory;
+    #endregion
+
+    #region unity events
     void Awake()
     {
         #region SINGLETON
@@ -51,6 +58,9 @@ public class PlayerControl : MonoBehaviour
         instance = this; //set this as the singleton
         DontDestroyOnLoad(gameObject); //to make it persist between levels
         #endregion
+
+        health = maxHealth;
+        inventory = new Item[invSize];
     }
 
     void Start()
@@ -60,8 +70,6 @@ public class PlayerControl : MonoBehaviour
         InputHandler.Instance.OnBackwardsMovement += MoveBackward;
         InputHandler.Instance.OnRightMovement += MoveRight;
         InputHandler.Instance.OnAttack += Attack;
-
-        health = 50;
     }
 
     void Update()
@@ -85,6 +93,7 @@ public class PlayerControl : MonoBehaviour
 
         if(curSpeed.magnitude > movementClamp) heroController.Move(curSpeed * Time.deltaTime);
     }
+    #endregion
 
     #region Movement Events
     public void MoveForward()
@@ -120,6 +129,7 @@ public class PlayerControl : MonoBehaviour
     }
     #endregion
 
+    #region Combat
     public void Attack()
     {
         if(lastAtkTime + atkSpeed < Time.time)
@@ -155,8 +165,44 @@ public class PlayerControl : MonoBehaviour
         //TODO: end game
         Debug.Log("rip");
     }
+    #endregion
+
+    #region items
+    public void Heal(int hp)
+    {
+        if (health > 0)
+        {
+            health += hp;
+            if (health > maxHealth) health = maxHealth;
+        }
+    }
+
+    public void AtkUp(int atkUp)
+    {
+        //TODO: change to a temporary power up
+        damage += atkUp;
+    }
+
+    public bool AddToInventory(Item item) //returns if the item was added or not
+    {
+        for(int i=0; i < inventory.Length; i++)
+        {
+            if(inventory[i] == null)
+            {
+                inventory[i] = item;
+                return true;
+            }
+        }
+        return false;
+    }
+    #endregion
 
     #region PROPERTIES
     public static PlayerControl Instance { get => instance; set => instance = value; }
+    public int Health { get => health; }
+
+    public int MaxHealth => maxHealth;
+
+    public Item[] Inventory { get => inventory; }
     #endregion
 }

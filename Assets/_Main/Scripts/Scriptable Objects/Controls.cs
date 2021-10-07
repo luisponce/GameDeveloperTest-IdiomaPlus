@@ -11,4 +11,7 @@ public class Controls : ScriptableObject
     public KeyCode rightMovementKC;
 
     public KeyCode attackCK;
+
+    public KeyCode inventoryKC;
+    public KeyCode pauseMenuKC;
 }

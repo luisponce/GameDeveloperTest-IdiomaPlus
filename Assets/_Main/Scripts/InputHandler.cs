@@ -28,7 +28,11 @@ public class InputHandler : MonoBehaviour {
     public delegate void Attack();
     public Attack OnAttack;
 
-    
+    public delegate void Inventory();
+    public Inventory OnInventory;
+
+    public delegate void PauseMenu();
+    public PauseMenu OnOpenPauseMenu;
     #endregion
 
     void Awake()
@@ -39,7 +43,7 @@ public class InputHandler : MonoBehaviour {
             Destroy(gameObject); //Delete if another instance already exists and is assigned.
             return;
         }
-        Instance = this; //set this as the singleton
+        instance = this; //set this as the singleton
         DontDestroyOnLoad(gameObject); //to make it persist between levels
         #endregion
     }
@@ -72,9 +76,19 @@ public class InputHandler : MonoBehaviour {
         {
             OnAttack?.Invoke();
         }
+
+        if (Input.GetKey(controlsKeyBinds.inventoryKC))
+        {
+            OnInventory?.Invoke();
+        }
+
+        if (Input.GetKey(controlsKeyBinds.pauseMenuKC))
+        {
+            OnOpenPauseMenu?.Invoke();
+        }
     }
 
     #region PROPERTIES
-    public static InputHandler Instance { get => instance; set => instance = value; }
+    public static InputHandler Instance { get => instance; }
     #endregion
 }
