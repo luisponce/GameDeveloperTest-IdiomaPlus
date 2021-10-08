@@ -109,6 +109,17 @@ public class PlayerControl : MonoBehaviour
 
         if(curSpeed.magnitude > movementClamp) heroController.Move(curSpeed * Time.deltaTime);
     }
+
+    private void OnDestroy()
+    {
+        InputHandler.Instance.OnForwardMovement -= MoveForward;
+        InputHandler.Instance.OnLeftMovement -= MoveLeft;
+        InputHandler.Instance.OnBackwardsMovement -= MoveBackward;
+        InputHandler.Instance.OnRightMovement -= MoveRight;
+        InputHandler.Instance.OnAttack -= Attack;
+
+        InputHandler.Instance.OnHotbar -= UseInventory;
+    }
     #endregion
 
     #region Movement Events

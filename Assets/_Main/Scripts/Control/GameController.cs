@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour
     public void RemoveGruntFromList(Grunt g)
     {
         enemiesRemaining.Remove(g);
+        Debug.Log(enemiesRemaining.Count);
         if(enemiesRemaining.Count == 0)
         {
             WinGame();
@@ -47,6 +48,7 @@ public class GameController : MonoBehaviour
     public void WinGame()
     {
         victoryScreenAnim.SetBool(VICTORY_FADER_VISIBLE, true);
+        
     }
 
     public void LoseGame()

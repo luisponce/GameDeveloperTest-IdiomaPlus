@@ -151,6 +151,7 @@ public class Grunt : MonoBehaviour
 
     public void Die()
     {
+        GameController.Instance.RemoveGruntFromList(this);
         Destroy(gameObject);
     }
     #endregion
