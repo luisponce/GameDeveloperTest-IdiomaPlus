@@ -68,8 +68,8 @@ MonoBehaviour:
   atkDamage: 2
   atkRange: 1.5
   atkSpeed: 2
-  agroRange: 7
-  maxChaseRange: 10
+  agroRange: 10
+  maxChaseRange: 20
 --- !u!195 &6795582692671987566
 NavMeshAgent:
   m_ObjectHideFlags: 0

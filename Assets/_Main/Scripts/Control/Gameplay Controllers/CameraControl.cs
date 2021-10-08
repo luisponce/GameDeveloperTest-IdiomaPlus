@@ -15,7 +15,9 @@ public class CameraControl : MonoBehaviour
     [SerializeField]
     private float orbitSensitivity = 3f;
 
+    [SerializeField]
     private float maxYAngle = 30;
+    [SerializeField]
     private float minYAngle = -15;
     #endregion orbit Variables
 
