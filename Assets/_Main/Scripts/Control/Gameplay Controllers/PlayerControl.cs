@@ -68,7 +68,7 @@ public class PlayerControl : MonoBehaviour
             return;
         }
         instance = this; //set this as the singleton
-        DontDestroyOnLoad(gameObject); //to make it persist between levels
+        //DontDestroyOnLoad(gameObject); //to make it persist between levels
         #endregion
 
         health = maxHealth;

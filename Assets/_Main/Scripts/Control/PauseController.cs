@@ -57,6 +57,17 @@ public class PauseController : MonoBehaviour
         }
     }
 
+    public void ForceUnpause()
+    {
+        if (isGamePaused)
+        {
+            isGamePaused = false;
+            Time.timeScale = 1;
+
+            pauseMenu.enabled = false;
+        }
+    }
+
     #region PROPERTIES
     public static PauseController Instance { get => instance; }
     public bool IsGamePaused { get => isGamePaused; }
