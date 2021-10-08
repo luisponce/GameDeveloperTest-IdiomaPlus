@@ -8,8 +8,8 @@ public class Grunt : MonoBehaviour
 {
     #region REFERENCES
     public NavMeshAgent navAgent;
-
     public Image hpBarMask;
+    public Animator characterAnim;
     #endregion
 
     #region combat variables
@@ -43,6 +43,14 @@ public class Grunt : MonoBehaviour
     private float patrolMaxRange = 5f;
     #endregion
 
+    private const string forwardSpeedAnimKey = "vZ";
+    private const string rightSpeedAnimKey = "vX";
+    private const string attackAnimKey = "attack";
+    private const string hitAnimKey = "hit";
+    private const string deadAnimKey = "dead";
+
+    private float timeToDelete = 7;
+
     private EGruntAIState aiState;
 
     void Start()
@@ -64,6 +72,8 @@ public class Grunt : MonoBehaviour
         #region ai FSM
         Vector3 distAnchor = PlayerControl.Instance.transform.position - chaseAnchor;
         Vector3 distGrunt = PlayerControl.Instance.transform.position - transform.position;
+
+        characterAnim.SetFloat(forwardSpeedAnimKey, GetComponent<NavMeshAgent>().velocity.magnitude / GetComponent<NavMeshAgent>().speed);
         switch (aiState)
         {
             case EGruntAIState.Idle:
@@ -112,6 +122,7 @@ public class Grunt : MonoBehaviour
                 atkCharge += Time.deltaTime;
                 if(atkCharge >= atkSpeed)
                 {
+                    characterAnim.SetTrigger(attackAnimKey);
                     PlayerControl.Instance.DealDamage(atkDamage);
                     atkCharge = 0;
                 }
@@ -131,6 +142,7 @@ public class Grunt : MonoBehaviour
     {
         health -= dmg;
         UpdateHpBar();
+        characterAnim.SetTrigger(hitAnimKey);
         if (health <= 0)
         {
             health = 0;
@@ -152,7 +164,9 @@ public class Grunt : MonoBehaviour
     public void Die()
     {
         GameController.Instance.RemoveGruntFromList(this);
-        Destroy(gameObject);
+        characterAnim.SetTrigger(deadAnimKey);
+        aiState = EGruntAIState.dead;
+        Destroy(gameObject, timeToDelete);
     }
     #endregion
 

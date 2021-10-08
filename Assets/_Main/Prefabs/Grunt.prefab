@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navAgent: {fileID: 6795582692671987566}
   hpBarMask: {fileID: 5837539423891804430}
+  characterAnim: {fileID: 6350591944294968530}
   atkDamage: 2
   atkRange: 1.5
   atkSpeed: 2
@@ -405,5 +406,10 @@ PrefabInstance:
 --- !u!4 &3926405746252863068 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1136994913350202544, guid: 917e00053cb499241a1d42e2b2716532, type: 3}
+  m_PrefabInstance: {fileID: 4159654663343203052}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6350591944294968530 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7033455320432561726, guid: 917e00053cb499241a1d42e2b2716532, type: 3}
   m_PrefabInstance: {fileID: 4159654663343203052}
   m_PrefabAsset: {fileID: 0}
