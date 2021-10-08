@@ -9678,6 +9678,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4099890921740684, guid: 9d200fbd47e9c7f45ad54450ebd25b94, type: 3}
   m_PrefabInstance: {fileID: 1777402340}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1796726732 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 91537696508703369, guid: 8526fc62d267e704aabe14dd3ca9d7ed, type: 3}
+  m_PrefabInstance: {fileID: 1986949847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1802750661 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1640908652775104, guid: cd87e5026d1695148aabe96121c526ef, type: 3}
@@ -11137,6 +11142,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShieldWarrior
       objectReference: {fileID: 0}
+    - target: {fileID: 91537696508703369, guid: 8526fc62d267e704aabe14dd3ca9d7ed, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9e6c48e8faf71d4469d40f757fa4d1be, type: 2}
+    - target: {fileID: 886248619818748293, guid: 8526fc62d267e704aabe14dd3ca9d7ed, type: 3}
+      propertyPath: charachterAnim
+      value: 
+      objectReference: {fileID: 1796726732}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8526fc62d267e704aabe14dd3ca9d7ed, type: 3}
 --- !u!1 &2000416422

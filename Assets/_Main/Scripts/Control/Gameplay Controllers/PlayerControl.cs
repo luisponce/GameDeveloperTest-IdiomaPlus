@@ -9,6 +9,12 @@ public class PlayerControl : MonoBehaviour
 
     public CharacterController heroController;
     public Transform characterModel;
+    public Animator charachterAnim;
+
+    private const string forwardSpeedAnimKey = "vZ";
+    private const string rightSpeedAnimKey = "vX";
+    private const string attackAnimKey = "attack";
+    private const string hitAnimKey = "hit";
 
     #region Movement Variables
     [SerializeField]
@@ -108,6 +114,8 @@ public class PlayerControl : MonoBehaviour
         }
 
         if(curSpeed.magnitude > movementClamp) heroController.Move(curSpeed * Time.deltaTime);
+
+        charachterAnim.SetFloat(forwardSpeedAnimKey, curSpeed.magnitude / maxMoveSpeed);
     }
 
     private void OnDestroy()
@@ -170,6 +178,7 @@ public class PlayerControl : MonoBehaviour
                 }
             }
 
+            charachterAnim.SetTrigger(attackAnimKey);
             lastAtkTime = Time.time;
         }
     }
@@ -178,6 +187,7 @@ public class PlayerControl : MonoBehaviour
     {
         if(health > 0)
         {
+            charachterAnim.SetTrigger(hitAnimKey);
             health -= dmg;
             OnHealthChange?.Invoke();
             if (health <= 0)
