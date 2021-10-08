@@ -29,7 +29,7 @@ public class InputHandler : MonoBehaviour {
     public Attack OnAttack;
 
     public delegate void PauseMenu();
-    public PauseMenu OnOpenPauseMenu;
+    public PauseMenu OnPauseMenu;
 
     #region hotbar
     //TODO: change to a array
@@ -82,7 +82,7 @@ public class InputHandler : MonoBehaviour {
 
         if (Input.GetKey(controlsKeyBinds.pauseMenuKC))
         {
-            OnOpenPauseMenu?.Invoke();
+            OnPauseMenu?.Invoke();
         }
 
         #region hotbar

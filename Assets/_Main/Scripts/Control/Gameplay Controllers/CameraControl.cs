@@ -41,14 +41,17 @@ public class CameraControl : MonoBehaviour
 
     void Update()
     {
-        xAngle += Input.GetAxis("Mouse X") * orbitSensitivity;
-        yAngle -= Input.GetAxis("Mouse Y") * orbitSensitivity;
+        if (!PauseController.Instance.IsGamePaused)
+        {
+            xAngle += Input.GetAxis("Mouse X") * orbitSensitivity;
+            yAngle -= Input.GetAxis("Mouse Y") * orbitSensitivity;
 
-        yAngle = ClampAngle(yAngle, minYAngle, maxYAngle);
+            yAngle = ClampAngle(yAngle, minYAngle, maxYAngle);
 
-        transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
+            transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
 
-        mainCamera.transform.LookAt(transform);
+            mainCamera.transform.LookAt(transform);
+        }
     }
 
     private float ClampAngle(float angle, float min, float max)
