@@ -176,8 +176,7 @@ public class PlayerControl : MonoBehaviour
 
     public void Die()
     {
-        //TODO: end game
-        Debug.Log("rip");
+        GameController.Instance.LoseGame();
     }
     #endregion
 
