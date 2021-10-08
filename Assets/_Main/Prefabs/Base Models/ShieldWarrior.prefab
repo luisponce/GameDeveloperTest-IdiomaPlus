@@ -1362,6 +1362,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1839016069282145938}
   orbitSensitivity: 5
+  maxYAngle: 30
+  minYAngle: -35
 --- !u!1 &5037487249565319761
 GameObject:
   m_ObjectHideFlags: 0

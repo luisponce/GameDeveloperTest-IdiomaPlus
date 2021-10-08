@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Grunt : MonoBehaviour
 {
     #region REFERENCES
     public NavMeshAgent navAgent;
+
+    public Image hpBarMask;
     #endregion
 
     #region combat variables
     private int health;
+    private const int maxHealth = 20;
 
     [SerializeField]
     private int atkDamage = 2;
@@ -43,12 +47,14 @@ public class Grunt : MonoBehaviour
 
     void Start()
     {
-        health = 20;
+        health = maxHealth;
         aiState = EGruntAIState.Idle;
         atkCharge = 0;
         chaseAnchor = transform.position;
 
         nextPatrolChange = 0;
+
+        UpdateHpBar();
     }
 
     void Update()
@@ -123,11 +129,17 @@ public class Grunt : MonoBehaviour
     public void Damage(int dmg)
     {
         health -= dmg;
-        if(health <= 0)
+        UpdateHpBar();
+        if (health <= 0)
         {
             health = 0;
             Die();
         }
+    }
+
+    public void UpdateHpBar()
+    {
+        hpBarMask.fillAmount = (float)health / (float)maxHealth;
     }
 
     public void Attack()
