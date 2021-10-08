@@ -176,12 +176,15 @@ public class PlayerControl : MonoBehaviour
 
     public void DealDamage(int dmg)
     {
-        health -= dmg;
-        OnHealthChange?.Invoke();
-        if (health <= 0)
+        if(health > 0)
         {
-            health = 0;
-            Die();
+            health -= dmg;
+            OnHealthChange?.Invoke();
+            if (health <= 0)
+            {
+                health = 0;
+                Die();
+            }
         }
     }
 

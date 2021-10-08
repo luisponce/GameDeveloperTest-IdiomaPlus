@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
             return;
         }
         instance = this; //set this as the singleton
-        //DontDestroyOnLoad(gameObject); //to make it persist between levels
+        DontDestroyOnLoad(gameObject); //to make it persist between levels
         #endregion
 
         enemiesRemaining = new List<Grunt>();
@@ -48,12 +48,26 @@ public class GameController : MonoBehaviour
     public void WinGame()
     {
         victoryScreenAnim.SetBool(VICTORY_FADER_VISIBLE, true);
-        
+        Persistence.Instance.IncreaseWins();
     }
 
     public void LoseGame()
     {
         defeatScreenAnim.SetBool(DEFEAT_FADER_VISIBLE, true);
+        Persistence.Instance.IncreaseLoses();
+    }
+
+    public void ResetForNewGame()
+    {
+        defeatScreenAnim.SetBool(DEFEAT_FADER_VISIBLE, false);
+        victoryScreenAnim.SetBool(VICTORY_FADER_VISIBLE, false);
+
+        enemiesRemaining = new List<Grunt>();
+    }
+
+    private void OnApplicationQuit()
+    {
+        Persistence.Instance.Save();
     }
 
     #region PROPERTIES

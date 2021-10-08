@@ -39,10 +39,13 @@ public class SceneController : MonoBehaviour
     public void GoToGameplay()
     {
         StartCoroutine(LoadSceneTransition(GAMEPLAY_SCENE_NAME));
+        Persistence.Instance.IncreasePlayed();
     }
 
     private IEnumerator LoadSceneTransition(string sceneName)
     {
+        GameController.Instance.ResetForNewGame();
+
         faderAnimator.SetBool(LOADING_FADER_VISIBLE, true);
         loadingBarMask.fillAmount = 0;
 

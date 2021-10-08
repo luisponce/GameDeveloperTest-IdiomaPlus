@@ -68,6 +68,11 @@ public class PauseController : MonoBehaviour
         }
     }
 
+    public void RelayGoToMenu()
+    {
+        SceneController.Instance.GoToMenu();
+    }
+
     #region PROPERTIES
     public static PauseController Instance { get => instance; }
     public bool IsGamePaused { get => isGamePaused; }
