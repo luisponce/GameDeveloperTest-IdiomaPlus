@@ -36,6 +36,11 @@ public class SceneController : MonoBehaviour
         StartCoroutine(LoadSceneTransition(MAINMENU_SCENE_NAME));
     }
 
+    public void GoToGameplay()
+    {
+        StartCoroutine(LoadSceneTransition(GAMEPLAY_SCENE_NAME));
+    }
+
     private IEnumerator LoadSceneTransition(string sceneName)
     {
         faderAnimator.SetBool(LOADING_FADER_VISIBLE, true);
