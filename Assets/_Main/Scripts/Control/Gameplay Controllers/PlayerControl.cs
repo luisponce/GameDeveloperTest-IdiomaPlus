@@ -150,10 +150,8 @@ public class PlayerControl : MonoBehaviour
     {
         if(lastAtkTime + atkSpeed < Time.time)
         {
-            Debug.Log("attack");
             if (Physics.SphereCast(characterModel.position + heroController.center, attackSpherecastRadius, characterModel.forward, out RaycastHit hit, attackReach))
             {
-                Debug.Log("hit");
                 Grunt grunt = hit.collider.GetComponent<Grunt>();
                 if (grunt != null)
                 {
@@ -263,7 +261,7 @@ public class PlayerControl : MonoBehaviour
     #endregion
 
     #region PROPERTIES
-    public static PlayerControl Instance { get => instance; set => instance = value; }
+    public static PlayerControl Instance { get => instance; }
     public int Health { get => health; }
 
     public int MaxHealth => maxHealth;

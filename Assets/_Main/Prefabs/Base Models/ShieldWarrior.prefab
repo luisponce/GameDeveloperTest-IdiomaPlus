@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 91537696508703369}
   - component: {fileID: 886248619818748293}
   - component: {fileID: 3891054544701098992}
+  - component: {fileID: 2252425590506196694}
   m_Layer: 0
   m_Name: ShieldWarrior
   m_TagString: Untagged
@@ -93,6 +94,22 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!208 &2252425590506196694
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91537696499171573}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &158252364530689489
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,7 +658,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 63e8c3d8ce75eae4ebaa4935bd776825, type: 2}
+  - {fileID: 2100000, guid: 5a9e6cf91cbfc1a4fbc9470cca37b97a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

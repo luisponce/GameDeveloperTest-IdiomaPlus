@@ -49,12 +49,14 @@ public class Grunt : MonoBehaviour
     {
         health = maxHealth;
         aiState = EGruntAIState.Idle;
-        atkCharge = 0;
+        atkCharge = atkSpeed/2;
         chaseAnchor = transform.position;
 
         nextPatrolChange = 0;
 
         UpdateHpBar();
+
+        GameController.Instance.AddGruntToList(this);
     }
 
     void Update()
@@ -88,10 +90,9 @@ public class Grunt : MonoBehaviour
                     if (distGrunt.magnitude < atkRange)
                     {
                         Attack();
-                    } 
-                    //re-target when chasing and player moves
-                    if ((PlayerControl.Instance.transform.position - navAgent.destination).magnitude > reTargetChaseThreshold)
+                    } else if ((PlayerControl.Instance.transform.position - navAgent.destination).magnitude > reTargetChaseThreshold)
                     {
+                        //re-target when chasing and player moves
                         Chase();
                     }
                 }
@@ -146,7 +147,6 @@ public class Grunt : MonoBehaviour
     {
         aiState = EGruntAIState.Attaking;
         navAgent.isStopped = true;
-        Debug.Log("atk");
     }
 
     public void Die()
