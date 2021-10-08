@@ -13,7 +13,8 @@ The test 'rules' can be found in the word document. The test asks for the develo
 * [RPG inventory icons](https://assetstore.unity.com/packages/2d/gui/icons/rpg-inventory-icons-56687)
 * [Simple Gems Ultimate Animated Customizable Pack](https://assetstore.unity.com/packages/3d/props/simple-gems-ultimate-animated-customizable-pack-73764)
 
-## Arquitecture
+## Architecture
 ### Component Diagram 
 
-![GameDeveloperTest component diagram drawio](https://user-images.githubusercontent.com/2230919/136439987-65a91cbf-38a2-48b8-b693-9b2b02b7b670.png)
+![GameDeveloperTest component diagram drawio (1)](https://user-images.githubusercontent.com/2230919/136510096-37490139-a0c7-485d-b001-70a5d71cd77e.png)
+
