@@ -97,26 +97,30 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        if (isGainingSpeed)
+        if (health > 0)
         {
-            curSpeed += movementAceleration * moveDir;
-            if (curSpeed.magnitude >= maxMoveSpeed)
+            if (isGainingSpeed)
             {
-                curSpeed = curSpeed.normalized * maxMoveSpeed;
+                curSpeed += movementAceleration * moveDir;
+                if (curSpeed.magnitude >= maxMoveSpeed)
+                {
+                    curSpeed = curSpeed.normalized * maxMoveSpeed;
+                }
+                characterModel.LookAt(characterModel.transform.position + curSpeed);
+                isGainingSpeed = false;
             }
-            characterModel.LookAt(characterModel.transform.position + curSpeed);
-            isGainingSpeed = false;
-        } else
-        {
-            if(curSpeed.magnitude > movementClamp)
+            else
             {
-                curSpeed += movementDeaceleration * -curSpeed.normalized;
+                if (curSpeed.magnitude > movementClamp)
+                {
+                    curSpeed += movementDeaceleration * -curSpeed.normalized;
+                }
             }
+
+            if (curSpeed.magnitude > movementClamp) heroController.Move(curSpeed * Time.deltaTime);
+
+            characterAnim.SetFloat(forwardSpeedAnimKey, curSpeed.magnitude / maxMoveSpeed);
         }
-
-        if(curSpeed.magnitude > movementClamp) heroController.Move(curSpeed * Time.deltaTime);
-
-        characterAnim.SetFloat(forwardSpeedAnimKey, curSpeed.magnitude / maxMoveSpeed);
     }
 
     private void OnDestroy()
@@ -168,7 +172,7 @@ public class PlayerControl : MonoBehaviour
     #region Combat
     public void Attack()
     {
-        if(lastAtkTime + atkSpeed < Time.time)
+        if(lastAtkTime + atkSpeed < Time.time && health > 0)
         {
             if (Physics.SphereCast(characterModel.position + heroController.center, attackSpherecastRadius, characterModel.forward, out RaycastHit hit, attackReach))
             {
@@ -252,7 +256,7 @@ public class PlayerControl : MonoBehaviour
 
     public void UseInventory(int slot)
     {
-        if (invLastUse + useItemCooldown <= Time.time && inventory[slot] != null)
+        if (health > 0 && invLastUse + useItemCooldown <= Time.time && inventory[slot] != null)
         {
             int remaining = inventory[slot].Use(this);
             invLastUse = Time.time;
